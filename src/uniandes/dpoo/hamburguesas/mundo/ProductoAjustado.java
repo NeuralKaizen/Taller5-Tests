@@ -40,12 +40,36 @@ public class ProductoAjustado implements Producto
     }
 
     /**
+     * Agrega un ingrediente adicional al producto
+     * @param ingrediente El ingrediente que se quiere agregar
+     */
+    public void agregarIngrediente( Ingrediente ingrediente )
+    {
+        agregados.add( ingrediente );
+    }
+
+    /**
+     * Elimina un ingrediente del producto
+     * @param ingrediente El ingrediente que se quiere quitar
+     */
+    public void eliminarIngrediente( Ingrediente ingrediente )
+    {
+        eliminados.add( ingrediente );
+    }
+
+    /**
      * Retorna el precio del producto ajustado, que debe ser igual al del producto base, sumándole el precio de los ingredientes adicionales.
      */
     @Override
     public int getPrecio( )
     {
-        return 0;
+        // precio base mas el costo de los ingredientes agregados
+        int precio = productoBase.getPrecio( );
+        for( Ingrediente ing : agregados )
+        {
+            precio += ing.getCostoAdicional( );
+        }
+        return precio;
     }
 
     /**
@@ -57,7 +81,7 @@ public class ProductoAjustado implements Producto
     public String generarTextoFactura( )
     {
         StringBuffer sb = new StringBuffer( );
-        sb.append( productoBase );
+        sb.append( productoBase.generarTextoFactura( ) );
         for( Ingrediente ing : agregados )
         {
             sb.append( "    +" + ing.getNombre( ) );

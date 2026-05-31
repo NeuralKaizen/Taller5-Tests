@@ -103,6 +103,8 @@ public class Restaurante
 
         String nombreArchivo = PREFIJO_FACTURAS + pedidoEnCurso.getIdPedido( ) + ".txt";
         pedidoEnCurso.guardarFactura( new File( CARPETA_FACTURAS + nombreArchivo ) );
+        // el pedido cerrado debe quedar guardado en el historico de pedidos
+        pedidos.add( pedidoEnCurso );
         pedidoEnCurso = null;
     }
 
